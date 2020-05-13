@@ -4,7 +4,7 @@ class Neighborhood < ApplicationRecord
     has_many :militia
 
     has_many :borders
-    has_many :adjacent_neighborhoods, through: :borders, source: :neighborhoods
+    has_many :adjacent_neighborhoods, through: :borders
 
     has_one :card
 end

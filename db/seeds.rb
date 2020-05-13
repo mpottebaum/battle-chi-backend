@@ -157,7 +157,7 @@ Border.create(neighborhood: edgewater, adjacent_neighborhood: uptown)
 
 # Uptown
 Border.create(neighborhood: uptown, adjacent_neighborhood: edgewater)
-Border.create(neighborhood: uptown, adjacent_neighborhood: lincoln_square
+Border.create(neighborhood: uptown, adjacent_neighborhood: lincoln_square)
 Border.create(neighborhood: uptown, adjacent_neighborhood: north_center)
 Border.create(neighborhood: uptown, adjacent_neighborhood: lakeview)
 
@@ -549,7 +549,7 @@ Border.create(neighborhood: chatham, adjacent_neighborhood: auburn_gresham)
 Border.create(neighborhood: chatham, adjacent_neighborhood: greater_grand_crossing)
 Border.create(neighborhood: chatham, adjacent_neighborhood: avalon_park)
 Border.create(neighborhood: chatham, adjacent_neighborhood: burnside)
-Border.create(neighborhood: chatham, adjacent_neighborhood: pullman
+Border.create(neighborhood: chatham, adjacent_neighborhood: pullman)
 Border.create(neighborhood: chatham, adjacent_neighborhood: roseland)
 
 # Avalon Park
