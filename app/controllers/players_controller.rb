@@ -1,9 +1,9 @@
 class PlayersController < ApplicationController
 
     def create
-        game = Game.find(params[:game_id])
+        game = Game.find(player_params[:game_id])
         player = game.players.create(player_params)
-        PlayersChannel.broadcast_to game, player
+        PlayersChannel.broadcast_to game, {id: player.id, name: player.name}
         head :ok
     end
 
@@ -13,6 +13,6 @@ class PlayersController < ApplicationController
     private
 
     def player_params
-        params.require(:player).permit(:name)
+        params.require(:player).permit(:name, :game_id)
     end
 end
