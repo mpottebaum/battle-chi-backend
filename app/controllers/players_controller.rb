@@ -2,7 +2,7 @@ class PlayersController < ApplicationController
 
     def create
         game = Game.find(player_params[:game_id])
-        player = game.players.create(player_params)
+        player = game.create_player(player_params)
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
             GameSerializer.new(player.game)
         ).serializable_hash

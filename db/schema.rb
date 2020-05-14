@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_12_193313) do
+ActiveRecord::Schema.define(version: 2020_05_14_193134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 2020_05_12_193313) do
     t.integer "num_players"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "turn_num", default: 1
+    t.integer "turn_stage", default: 0
+    t.integer "turn_order_num", default: 1
   end
 
   create_table "militia", force: :cascade do |t|
@@ -61,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_05_12_193313) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "turn_order_num"
   end
 
   create_table "zones", force: :cascade do |t|
