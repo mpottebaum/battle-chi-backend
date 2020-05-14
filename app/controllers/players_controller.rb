@@ -3,11 +3,25 @@ class PlayersController < ApplicationController
     def create
         game = Game.find(player_params[:game_id])
         player = game.players.create(player_params)
-        PlayersChannel.broadcast_to game, {id: player.id, name: player.name}
-        head :ok
+        serialized_game = ActiveModelSerializers::Adapter::Json.new(
+            GameSerializer.new(player.game)
+        ).serializable_hash
+        PlayersChannel.broadcast_to player.game, serialized_game
+
+        render json: player
     end
 
     def show
+    end
+
+    def update
+        player = Player.find(params[:id])
+        player.militia.create(neighborhood_id: 1)
+        serialized = ActiveModelSerializers::Adapter::Json.new(
+            GameSerializer.new(player.game)
+        ).serializable_hash
+        PlayersChannel.broadcast_to player.game, serialized
+        head :ok
     end
 
     private

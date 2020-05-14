@@ -2,13 +2,23 @@ class GamesController < ApplicationController
 
     def create
         game = Game.create(num_players: 2)
-        ActionCable.server.broadcast 'games_channel', {id: game.id, num_players: game.num_players}
-        head :ok
+        render json: game
     end
 
     def show
         game = Game.find(params[:id])
-        ActionCable.server.broadcast 'games_channel', {id: game.id, num_players: game.num_players}
+        render json: game
+    end
+
+    def update
+        game = Game.find(params[:id])
+        new_num = game.num_players + 1
+        game.update(num_players: new_num)
+
+        serialized_data = ActiveModelSerializers::Adapter::Json.new(
+          GameSerializer.new(game)
+        ).serializable_hash
+        ActionCable.server.broadcast "games_channel_#{game.id}", serialized_data
         head :ok
     end
 
