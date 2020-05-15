@@ -1,7 +1,8 @@
 class NeighborhoodSerializer < ActiveModel::Serializer
-  attributes :id, :name, :zone, :adjacent_neighborhoods
+  attributes :id, :name, :zone_id, :adjacent_neighborhood_ids
 
-  def adjacent_neighborhoods
-    self.object.adjacent_neighborhoods
+  def adjacent_neighborhood_ids
+    self.object.adjacent_neighborhoods.map {|neighborhood| neighborhood.id}
   end
+
 end
