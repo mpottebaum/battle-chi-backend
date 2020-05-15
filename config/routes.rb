@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :games
   resources :players
+  resources :neighborhoods, only: [:index]
 
   mount ActionCable.server => '/cable'
 end
