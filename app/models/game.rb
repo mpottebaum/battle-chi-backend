@@ -5,7 +5,7 @@ class Game < ApplicationRecord
     def create_player(params)
         if players.length == 0
             player = players.create(name: params[:name], turn_order_num: 1)
-            neighborhoods = Neighborhood.all.sample(30)
+            neighborhoods = Neighborhood.all.sample(21)
         else
             opponent = players.first
             neighborhoods = Neighborhood.all.reject do |neighborhood|

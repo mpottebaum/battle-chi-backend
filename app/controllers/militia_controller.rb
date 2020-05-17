@@ -7,6 +7,10 @@ class MilitiaController < ApplicationController
             neighborhood_id: militium_params[:neighborhood_id]
         )
 
+        if params[:end_stage]
+            player.game.update(turn_stage: 1)
+        end
+
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
             GameSerializer.new(player.game)
         ).serializable_hash
