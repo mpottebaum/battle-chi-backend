@@ -2,6 +2,8 @@ class Game < ApplicationRecord
     has_many :players
     has_many :militia, through: :players
 
+    has_many :battles
+
     def create_player(params)
         if players.length == 0
             player = players.create(name: params[:name], turn_order_num: 1)

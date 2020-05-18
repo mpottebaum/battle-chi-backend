@@ -1,5 +1,5 @@
 class PlayerSerializer < ActiveModel::Serializer
-  attributes :id, :name, :game_id, :turn_order_num, :battles
+  attributes :id, :name, :game_id, :turn_order_num
 
   # def militia
   #   self.object.militia
