@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :games
   resources :players do
     resources :militia
+    resources :battles
   end
   resources :neighborhoods, only: [:index]
 
