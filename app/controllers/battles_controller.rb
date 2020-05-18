@@ -5,8 +5,10 @@ class BattlesController < ApplicationController
         Battle.create(
             game: player.game,
             attack_player_id: player.id,
-            attack_neighborhood_id: battle_params[:neighborhood_id],
-            attack_militia: battle_params[:militia]
+            attack_neighborhood_id: battle_params[:attack_neighborhood_id],
+            attack_militia: battle_params[:attack_militia],
+            defense_player_id: battle_params[:defense_player_id],
+            defense_neighborhood_id: battle_params[:defense_neighborhood_id]
         )
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
@@ -17,11 +19,9 @@ class BattlesController < ApplicationController
 
     def update
         player = Player.find(params[:player_id])
-        Battle.create(
-            game: player.game,
-            defense_player_id: player.id,
-            defense_neighborhood_id: battle_params[:neighborhood_id],
-            defense_militia: battle_params[:militia]
+        battle = Battle.find(params[:id])
+        Battle.update(
+            defense_militia: battle_params[:defense_militia]
         )
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
@@ -33,6 +33,12 @@ class BattlesController < ApplicationController
     private
 
     def battle_params
-        params.require(:battle).permit(:neighborhood_id, :militia)
+        params.require(:battle).permit(
+            :attack_neighborhood_id,
+            :attack_militia,
+            :defense_player_id,
+            :defense_neighborhood_id,
+            :defense_militia
+        )
     end
 end
