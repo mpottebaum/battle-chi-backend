@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :games
   resources :players do
     resources :militia
-    resources :battles
+    resources :battles, only: [:create, :update]
+    patch '/battles/:id/complete', to: 'battles#complete'
   end
   resources :neighborhoods, only: [:index]
 

@@ -24,21 +24,19 @@ class Battle < ApplicationRecord
         highest_defense_fronts = defense_fronts.max(2) do |front_1, front_2|
             front_1.result <=> front_2.result
         end
-        if highest_attack_fronts.first > highest_defense_fronts.first && highest_attack_fronts.last > highest_defense_fronts.last
-            2.times do
-                militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id)
-                militium.destroy
-            end
-        elsif highest_attack_fronts.first > highest_defense_fronts.first && highest_attack_fronts.last <= highest_defense_fronts.last
-            defense_militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id)
+        if highest_attack_fronts.first.result > highest_defense_fronts.first.result && highest_attack_fronts.last.result > highest_defense_fronts.last.result
+            militia = defense_player.militia.find_all {|militium| militium.neighborhood_id == defense_neighborhood_id}
+            militia.first.destroy
+            militia.last.destroy
+        elsif highest_attack_fronts.first.result > highest_defense_fronts.first.result && highest_attack_fronts.last.result <= highest_defense_fronts.last.result
+            defense_militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id}
             defense_militium.destroy
-            attack_militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id)
+            attack_militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id}
             attack_militium.destroy
         else
-            2.times do
-                militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id)
-                militium.destroy
-            end
+            militia = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id}
+            militia.first.destroy
+            militia.last.destroy
         end
     end
 
@@ -51,10 +49,10 @@ class Battle < ApplicationRecord
         highest_defense = defense_fronts.max do |front_1, front_2|
             front_1.result <=> front_2.result
         end
-        if highest_attack > highest_defense
-            militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id)
+        if highest_attack.result > highest_defense.result
+            militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id}
         else
-            militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id)
+            militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id}
         end
         militium.destroy
     end
