@@ -10,17 +10,12 @@ class GameSerializer < ActiveModel::Serializer
     end
   end
 
-  # def neighborhoods
-  #   Neighborhood.all.map do |neighborhood|
-  #     serialized_neighborhood = ActiveModelSerializers::Adapter::Json.new(
-  #       NeighborhoodSerializer.new(neighborhood)
-  #     ).serializable_hash
-  #     serialized_neighborhood[:neighborhood][:militia] = neighborhood.find_militia(self.object.id)
-  #     serialized_neighborhood[:neighborhood]
-  #   end
-  # end
-
-  # def zones
-  #   Zone.all
-  # end
+  def battles
+    self.object.battles.map do |battle|
+      serialized_battle = ActiveModelSerializers::Adapter::Json.new(
+        BattleSerializer.new(battle)
+      ).serializable_hash
+      serialized_battle[:battle]
+    end
+  end
 end

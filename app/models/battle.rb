@@ -2,5 +2,71 @@ class Battle < ApplicationRecord
     belongs_to :game
 
     belongs_to :attack_player, class_name: 'Player'
-    belongs_to :defense_player, class_name: 'Player', optional: true
+    belongs_to :defense_player, class_name: 'Player'
+
+    has_many :battle_fronts
+
+    def fight
+        create_fronts
+        if defense_militia == 2
+            score_two_defense
+        else
+            score_one_defense
+        end
+    end
+
+    def score_two_defense
+        attack_fronts = battle_fronts.filter {|front| front.player == attack_player}
+        highest_attack_fronts = attack_fronts.max(2) do |front_1, front_2|
+            front_1.result <=> front_2.result
+        end
+        defense_fronts = battle_fronts.filter {|front| front.player == defense_player}
+        highest_defense_fronts = defense_fronts.max(2) do |front_1, front_2|
+            front_1.result <=> front_2.result
+        end
+        if highest_attack_fronts.first > highest_defense_fronts.first && highest_attack_fronts.last > highest_defense_fronts.last
+            2.times do
+                militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id)
+                militium.destroy
+            end
+        elsif highest_attack_fronts.first > highest_defense_fronts.first && highest_attack_fronts.last <= highest_defense_fronts.last
+            defense_militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id)
+            defense_militium.destroy
+            attack_militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id)
+            attack_militium.destroy
+        else
+            2.times do
+                militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id)
+                militium.destroy
+            end
+        end
+    end
+
+    def score_one_defense
+        attack_fronts = battle_fronts.filter {|front| front.player == attack_player}
+        highest_attack = attack_fronts.max do |front_1, front_2|
+            front_1.result <=> front_2.result
+        end
+        defense_fronts = battle_fronts.filter {|front| front.player == defense_player}
+        highest_defense = defense_fronts.max do |front_1, front_2|
+            front_1.result <=> front_2.result
+        end
+        if highest_attack > highest_defense
+            militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id)
+        else
+            militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id)
+        end
+        militium.destroy
+    end
+
+    def create_fronts
+        attack_militia.times do
+            result = rand(1..6)
+            battle_front = battle_fronts.create(player: attack_player, result: result)
+        end
+        defense_militia.times do
+            result = rand(1..6)
+            battle_front = battle_fronts.create(player: defense_player, result: result)
+        end
+    end
 end

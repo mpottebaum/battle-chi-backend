@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_203541) do
+ActiveRecord::Schema.define(version: 2020_05_19_160501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "battle_fronts", force: :cascade do |t|
+    t.integer "battle_id"
+    t.integer "player_id"
+    t.integer "result"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "battles", force: :cascade do |t|
     t.integer "attack_neighborhood_id"
@@ -25,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_203541) do
     t.integer "attack_player_id"
     t.integer "defense_player_id"
     t.integer "game_id"
+    t.boolean "active", default: true
   end
 
   create_table "borders", force: :cascade do |t|

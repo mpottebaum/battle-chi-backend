@@ -17,6 +17,7 @@ class Game < ApplicationRecord
         end
         neighborhoods.each do |neighborhood|
             player.militia.create(neighborhood: neighborhood)
+            player.militia.create(neighborhood: neighborhood)
         end
         player
     end

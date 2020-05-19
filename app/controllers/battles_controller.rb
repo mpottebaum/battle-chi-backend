@@ -20,9 +20,10 @@ class BattlesController < ApplicationController
     def update
         player = Player.find(params[:player_id])
         battle = Battle.find(params[:id])
-        Battle.update(
+        battle.update(
             defense_militia: battle_params[:defense_militia]
         )
+        battle.fight
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
             GameSerializer.new(player.game)
