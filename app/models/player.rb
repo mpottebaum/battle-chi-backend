@@ -9,4 +9,12 @@ class Player < ApplicationRecord
 
     has_many :attack_battles, class_name: 'Battle', foreign_key: 'attack_player_id'
     has_many :defense_battles, class_name: 'Battle', foreign_key: 'defense_player_id'
+
+    def fortify(params)
+        from_neighborhood_militia = militia.filter {|militium| militium.neighborhood_id == params[:from_neighborhood_id]}
+        fortifying_militia = from_neighborhood_militia.sample(params[:num_militia])
+        fortifying_militia.each do |militium|
+            militium.update(neighborhood_id: params[:to_neighborhood_id])
+        end
+    end
 end

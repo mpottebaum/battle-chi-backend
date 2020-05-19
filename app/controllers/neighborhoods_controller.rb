@@ -14,4 +14,5 @@ class NeighborhoodsController < ApplicationController
             zones: zones
         }
     end
+
 end

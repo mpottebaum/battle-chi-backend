@@ -6,6 +6,14 @@ class Battle < ApplicationRecord
 
     has_many :battle_fronts
 
+    def conquer(num_militia)
+        all_attack_militia = attack_player.militia.filter {|militium| militium.neighborhood_id == attack_neighborhood_id}
+        moving_militia = all_attack_militia.sample(num_militia)
+        moving_militia.each do |militium|
+            militium.update(neighborhood_id: defense_neighborhood_id)
+        end
+    end
+    
     def fight
         create_fronts
         if defense_militia == 2
@@ -33,8 +41,13 @@ class Battle < ApplicationRecord
             defense_militium.destroy
             attack_militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id}
             attack_militium.destroy
+        elsif highest_attack_fronts.first.result <= highest_defense_fronts.first.result && highest_attack_fronts.last.result > highest_defense_fronts.last.result
+            defense_militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id}
+            defense_militium.destroy
+            attack_militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id}
+            attack_militium.destroy
         else
-            militia = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id}
+            militia = attack_player.militia.find_all {|militium| militium.neighborhood_id == attack_neighborhood_id}
             militia.first.destroy
             militia.last.destroy
         end

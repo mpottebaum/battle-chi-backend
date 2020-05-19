@@ -21,4 +21,14 @@ class Game < ApplicationRecord
         end
         player
     end
+
+    def cycle_turn
+        if turn_order_num == num_players
+            new_turn = turn_num + 1
+            update(turn_order_num: 1, turn_num: new_turn, turn_stage: 0)
+        else
+            new_num = turn_order_num + 1
+            update(turn_order_num: new_num, turn_stage: 0)
+        end
+    end
 end

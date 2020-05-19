@@ -42,6 +42,18 @@ class BattlesController < ApplicationController
         PlayersChannel.broadcast_to player.game, serialized_game
     end
 
+    def conquer
+        player = Player.find(params[:player_id])
+        battle = Battle.find(params[:id])
+        battle.conquer(params[:num_militia])
+        battle.update(active: false)
+
+        serialized_game = ActiveModelSerializers::Adapter::Json.new(
+            GameSerializer.new(player.game)
+        ).serializable_hash
+        PlayersChannel.broadcast_to player.game, serialized_game
+    end
+
     private
 
     def battle_params

@@ -10,16 +10,14 @@ class GamesController < ApplicationController
         render json: game
     end
 
-    def update
+    def fortify
         game = Game.find(params[:id])
-        new_num = game.num_players + 1
-        game.update(num_players: new_num)
+        game.update(turn_stage: 2)
 
-        serialized_data = ActiveModelSerializers::Adapter::Json.new(
-          GameSerializer.new(game)
+        serialized_game = ActiveModelSerializers::Adapter::Json.new(
+            GameSerializer.new(game)
         ).serializable_hash
-        ActionCable.server.broadcast "games_channel_#{game.id}", serialized_data
-        head :ok
+        PlayersChannel.broadcast_to game, serialized_game
     end
 
 end
