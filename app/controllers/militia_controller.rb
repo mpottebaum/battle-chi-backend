@@ -2,12 +2,9 @@ class MilitiaController < ApplicationController
 
     def create
         player = Player.find(params[:player_id])
-        player.militia.create(
-            player: player,
-            neighborhood_id: militium_params[:neighborhood_id]
-        )
-
-        if params[:end_stage]
+        player.create_militia(militium_params[:neighborhood_id])
+        
+        if player.place_militium.num_militia == player.place_militium.militia_placed
             player.game.update(turn_stage: 1)
         end
 

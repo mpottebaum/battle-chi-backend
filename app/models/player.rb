@@ -1,6 +1,8 @@
 class Player < ApplicationRecord
     belongs_to :game
 
+    has_one :place_militium
+
     has_many :militia
     has_many :neighborhoods, through: :militia
 
@@ -16,5 +18,11 @@ class Player < ApplicationRecord
         fortifying_militia.each do |militium|
             militium.update(neighborhood_id: params[:to_neighborhood_id])
         end
+    end
+
+    def create_militia(neighborhood_id)
+        militia.create(neighborhood_id: neighborhood_id)
+        militia_placed = place_militium.militia_placed + 1
+        place_militium.update(militia_placed: militia_placed)
     end
 end
