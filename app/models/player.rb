@@ -25,4 +25,9 @@ class Player < ApplicationRecord
         militia_placed = place_militium.militia_placed + 1
         place_militium.update(militia_placed: militia_placed)
     end
+
+    def set_place_militia
+        num_militia = neighborhoods.length / 3
+        place_militium.update(num_militia: num_militia)
+    end
 end

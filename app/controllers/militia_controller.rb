@@ -6,6 +6,7 @@ class MilitiaController < ApplicationController
         
         if player.place_militium.num_militia == player.place_militium.militia_placed
             player.game.update(turn_stage: 1)
+            player.place_militium.update(militia_placed: 0)
         end
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(

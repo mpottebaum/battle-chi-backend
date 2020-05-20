@@ -31,5 +31,7 @@ class Game < ApplicationRecord
             new_num = turn_order_num + 1
             update(turn_order_num: new_num, turn_stage: 0)
         end
+        current_player = players.find_by(turn_order_num: turn_order_num)
+        current_player.set_place_militia
     end
 end
