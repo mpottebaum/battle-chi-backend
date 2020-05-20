@@ -15,6 +15,7 @@ class Game < ApplicationRecord
             end
             player = players.create(name: params[:name], turn_order_num: 2)
         end
+        player.create_place_militium(num_militia: 7, militia_placed: 0)
         neighborhoods.each do |neighborhood|
             player.militia.create(neighborhood: neighborhood)
             player.militia.create(neighborhood: neighborhood)
