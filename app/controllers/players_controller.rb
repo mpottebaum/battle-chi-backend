@@ -36,6 +36,6 @@ class PlayersController < ApplicationController
     private
 
     def player_params
-        params.require(:player).permit(:name, :game_id, :to_neighborhood_id, :from_neighborhood_id, :num_militia)
+        params.require(:player).permit(:name, :game_id, :to_neighborhood_id, :from_neighborhood_id, :num_militia, :skip)
     end
 end

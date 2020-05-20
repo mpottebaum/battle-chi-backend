@@ -13,6 +13,9 @@ class Player < ApplicationRecord
     has_many :defense_battles, class_name: 'Battle', foreign_key: 'defense_player_id'
 
     def fortify(params)
+        if params[:skip]
+            return
+        end
         from_neighborhood_militia = militia.filter {|militium| militium.neighborhood_id == params[:from_neighborhood_id]}
         fortifying_militia = from_neighborhood_militia.sample(params[:num_militia])
         fortifying_militia.each do |militium|

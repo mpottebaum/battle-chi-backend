@@ -43,4 +43,14 @@ class GamesController < ApplicationController
         PlayersChannel.broadcast_to game, serialized_game
     end
 
+    def cycle
+        game = Game.find(params[:id])
+        game.cycle_turn
+
+        serialized_game = ActiveModelSerializers::Adapter::Json.new(
+            GameSerializer.new(game)
+        ).serializable_hash
+        PlayersChannel.broadcast_to game, serialized_game
+    end
+
 end

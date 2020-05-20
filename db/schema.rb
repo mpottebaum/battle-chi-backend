@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_145209) do
+ActiveRecord::Schema.define(version: 2020_05_20_204056) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_05_20_145209) do
     t.integer "turn_num", default: 1
     t.integer "turn_stage", default: 0
     t.integer "turn_order_num", default: 1
+    t.boolean "setup", default: true
   end
 
   create_table "militia", force: :cascade do |t|

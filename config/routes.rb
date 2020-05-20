@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :games
   get '/games/:id/retrieve', to: 'games#retrieve'
   patch '/games/:id/fortify', to: 'games#fortify'
+  patch '/games/:id/cycle', to: 'games#cycle'
   resources :players do
     resources :militia
     resources :battles, only: [:create, :update]
