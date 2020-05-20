@@ -27,7 +27,7 @@ class Player < ApplicationRecord
     end
 
     def set_place_militia
-        num_militia = neighborhoods.length / 3
+        num_militia = neighborhoods.uniq.length / 3
         place_militium.update(num_militia: num_militia)
     end
 end
