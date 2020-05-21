@@ -58,17 +58,17 @@ class Game < ApplicationRecord
 
     def card_bonus
         case card_sets
-            when 1
+            when 0
                 return 4
-            when 2
+            when 1
                 return 6
-            when 3
+            when 2
                 return 8
-            when 4
+            when 3
                 return 10
-            when 5
+            when 4
                 return 12
-            when 6
+            when 5
                 return 15
             else
                 return ((card_sets - 6) * 5) + 15

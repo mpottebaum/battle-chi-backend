@@ -47,23 +47,24 @@ class Player < ApplicationRecord
     end
 
     def trade_cards(card_ids)
-        num_sets = game.card_sets + 1
-        game.update(card_sets: num_sets)
         num_militia = place_militium.num_militia + game.card_bonus
         place_militium.update(num_militia: num_militia)
-
+        
         if any_neighborhoods?(card_ids)
             card = any_neighborhoods?(card_ids)
             militia.create(neighborhood_id: card.neighborhood_id)
             militia.create(neighborhood_id: card.neighborhood_id)
         end
-
+        
         disable_cards(card_ids)
+
+        num_sets = game.card_sets + 1
+        game.update(card_sets: num_sets)
     end
 
     def disable_cards(card_ids)
         player_cards.each do |player_card|
-            if card_id.include?(player_card.id)
+            if card_ids.include?(player_card.card.id)
                 player_card.update(traded: true)
             end
         end
