@@ -47,6 +47,9 @@ class BattlesController < ApplicationController
         battle = Battle.find(params[:id])
         battle.conquer(params[:num_militia])
         battle.update(active: false)
+        if !player.draw_card
+            player.update(draw_card: true)
+        end
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
             GameSerializer.new(player.game)

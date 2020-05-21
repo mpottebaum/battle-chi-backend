@@ -12,10 +12,12 @@ Militium.destroy_all
 PlaceMilitium.destroy_all
 Battle.destroy_all
 BattleFront.destroy_all
+PlayerCard.destroy_all
 
 Zone.destroy_all
 Neighborhood.destroy_all
 Border.destroy_all
+Card.destroy_all
 
 # -----
 # ZONES
@@ -431,63 +433,58 @@ Border.create(neighborhood: hegewisch, adjacent_neighborhood: south_deering)
 # CARDS
 # -----
 
-# Card.create(neighborhood: forest_glen, fight_type: 'Gunman')
-# Card.create(neighborhood: north_park, fight_type: 'Gunman')
-# Card.create(neighborhood: albany_park, fight_type: 'Gunman')
-# Card.create(neighborhood: lincoln_square, fight_type: 'Gunman')
-# Card.create(neighborhood: edgewater, fight_type: 'Gunman')
-# Card.create(neighborhood: uptown, fight_type: 'Gunman')
-# Card.create(neighborhood: portage_park, fight_type: 'Gunman')
-# Card.create(neighborhood: belmont_cragin, fight_type: 'Gunman')
-# Card.create(neighborhood: irving_park, fight_type: 'Gunman')
-# Card.create(neighborhood: hermosa, fight_type: 'Gunman')
-# Card.create(neighborhood: avondale, fight_type: 'Gunman')
-# Card.create(neighborhood: logan_square, fight_type: 'Gunman')
-# Card.create(neighborhood: north_center, fight_type: 'Gunman')
-# Card.create(neighborhood: lakeview, fight_type: 'Gunman')
-# Card.create(neighborhood: lincoln_park, fight_type: 'Gunman')
-# Card.create(neighborhood: near_north_side, fight_type: 'Gunman')
-# Card.create(neighborhood: loop_, fight_type: 'Gunman')
-# Card.create(neighborhood: near_south_side, fight_type: 'Gunman')
-# Card.create(neighborhood: austin, fight_type: 'Gunman')
-# Card.create(neighborhood: humboldt_park, fight_type: 'Gunman')
-# Card.create(neighborhood: west_town, fight_type: 'Gunman')
-# Card.create(neighborhood: west_garfield_park, fight_type: 'Gunman')
-# Card.create(neighborhood: east_garfield_park, fight_type: 'Gunman')
-# Card.create(neighborhood: near_west_side, fight_type: 'Gunman')
-# Card.create(neighborhood: north_lawndale, fight_type: 'Gunman')
-# Card.create(neighborhood: south_lawndale, fight_type: 'Gunman')
-# Card.create(neighborhood: lower_west_side, fight_type: 'Gunman')
-# Card.create(neighborhood: archer_heights, fight_type: 'Gunman')
-# Card.create(neighborhood: brighton_park, fight_type: 'Gunman')
-# Card.create(neighborhood: mckinley_park, fight_type: 'Gunman')
-# Card.create(neighborhood: west_elsdon, fight_type: 'Gunman')
-# Card.create(neighborhood: gage_park, fight_type: 'Gunman')
-# Card.create(neighborhood: new_city, fight_type: 'Gunman')
-# Card.create(neighborhood: west_lawn, fight_type: 'Gunman')
-# Card.create(neighborhood: chicago_lawn, fight_type: 'Gunman')
-# Card.create(neighborhood: west_englewood, fight_type: 'Gunman')
-# Card.create(neighborhood: englewood, fight_type: 'Gunman')
-# Card.create(neighborhood: bridgeport, fight_type: 'Gunman')
-# Card.create(neighborhood: armor_square, fight_type: 'Gunman')
-# Card.create(neighborhood: douglas, fight_type: 'Gunman')
-# Card.create(neighborhood: fuller_park, fight_type: 'Gunman')
-# Card.create(neighborhood: grand_boulevard, fight_type: 'Gunman')
-# Card.create(neighborhood: oakland, fight_type: 'Gunman')
-# Card.create(neighborhood: kenwood, fight_type: 'Gunman')
-# Card.create(neighborhood: washington_park, fight_type: 'Gunman')
-# Card.create(neighborhood: hyde_park, fight_type: 'Gunman')
-# Card.create(neighborhood: woodlawn, fight_type: 'Gunman')
-# Card.create(neighborhood: greater_grand_crossing, fight_type: 'Gunman')
-# Card.create(neighborhood: south_shore, fight_type: 'Gunman')
-# Card.create(neighborhood: ashburn, fight_type: 'Gunman')
-# Card.create(neighborhood: auburn_gresham, fight_type: 'Gunman')
-# Card.create(neighborhood: beverly, fight_type: 'Gunman')
-# Card.create(neighborhood: washington_heights, fight_type: 'Gunman')
-# Card.create(neighborhood: chatham, fight_type: 'Gunman')
-# Card.create(neighborhood: avalon_park, fight_type: 'Gunman')
-# Card.create(neighborhood: south_chicago, fight_type: 'Gunman')
-# Card.create(neighborhood: burnside, fight_type: 'Gunman')
-# Card.create(neighborhood: calumet_heights, fight_type: 'Gunman')
-# Card.create(neighborhood: roseland, fight_type: 'Gunman')
-# Card.create(neighborhood: pullman, fight_type: 'Gunman')
+Card.create(neighborhood: rogers_park, fighter_type: 1)
+Card.create(neighborhood: jefferson_park, fighter_type: 2)
+Card.create(neighborhood: albany_park, fighter_type: 3)
+Card.create(neighborhood: lincoln_square, fighter_type: 1)
+Card.create(neighborhood: edgewater, fighter_type: 2)
+Card.create(neighborhood: uptown, fighter_type: 3)
+
+Card.create(neighborhood: portage_park, fighter_type: 3)
+Card.create(neighborhood: belmont_cragin, fighter_type: 1)
+Card.create(neighborhood: irving_park, fighter_type: 2)
+
+Card.create(neighborhood: logan_square, fighter_type: 2)
+Card.create(neighborhood: lakeview, fighter_type: 1)
+Card.create(neighborhood: lincoln_park, fighter_type: 3)
+
+Card.create(neighborhood: near_north_side, fighter_type: 3)
+Card.create(neighborhood: loop_, fighter_type: 1)
+Card.create(neighborhood: near_south_side, fighter_type: 2)
+
+Card.create(neighborhood: austin, fighter_type: 3)
+Card.create(neighborhood: humboldt_park, fighter_type: 1)
+Card.create(neighborhood: west_town, fighter_type: 2)
+Card.create(neighborhood: garfield_park, fighter_type: 1)
+Card.create(neighborhood: near_west_side, fighter_type: 2)
+Card.create(neighborhood: lawndale, fighter_type: 3)
+
+Card.create(neighborhood: brighton_park, fighter_type: 1)
+Card.create(neighborhood: gage_park, fighter_type: 3)
+Card.create(neighborhood: new_city, fighter_type: 2)
+Card.create(neighborhood: chicago_lawn, fighter_type: 1)
+Card.create(neighborhood: englewood, fighter_type: 2)
+
+Card.create(neighborhood: bridgeport, fighter_type: 1)
+Card.create(neighborhood: bronzeville, fighter_type: 2)
+Card.create(neighborhood: hyde_park, fighter_type: 3)
+Card.create(neighborhood: greater_grand_crossing, fighter_type: 3)
+Card.create(neighborhood: south_shore, fighter_type: 1)
+
+Card.create(neighborhood: ashburn, fighter_type: 1)
+Card.create(neighborhood: auburn_gresham, fighter_type: 2)
+Card.create(neighborhood: beverly, fighter_type: 3)
+Card.create(neighborhood: washington_heights, fighter_type: 2)
+Card.create(neighborhood: morgan_park, fighter_type: 3)
+
+Card.create(neighborhood: chatham, fighter_type: 2)
+Card.create(neighborhood: south_chicago, fighter_type: 1)
+Card.create(neighborhood: calumet_heights, fighter_type: 3)
+Card.create(neighborhood: pullman, fighter_type: 1)
+Card.create(neighborhood: south_deering, fighter_type: 2)
+Card.create(neighborhood: hegewisch, fighter_type: 3)
+
+# Wild cards
+Card.create(fighter_type: 0)
+Card.create(fighter_type: 0)
+Card.create(fighter_type: 0)
