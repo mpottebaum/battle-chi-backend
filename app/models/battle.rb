@@ -16,14 +16,30 @@ class Battle < ApplicationRecord
     
     def fight
         create_fronts
-        if defense_militia == 2
-            score_two_defense
+        if defense_militia == 2 && attack_militia > 1
+            score_two_defense_two_attack
+        elsif defense_militia == 2 && attack_militia == 1
+            score_two_defense_one_attack
         else
             score_one_defense
         end
     end
 
-    def score_two_defense
+    def score_two_defense_one_attack
+        attack_front = battle_fronts.detect {|front| front.player == attack_player}
+        defense_fronts = battle_fronts.filter {|front| front.player == defense_player}
+        highest_defense_front = defense_fronts.max do |front_1, front_2|
+            front_1.result <=> front_2.result
+        end
+        if attack_front.result > highest_defense_front
+            militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id}
+        else
+            militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id}
+        end
+        militium.destroy
+    end
+
+    def score_two_defense_two_attack
         attack_fronts = battle_fronts.filter {|front| front.player == attack_player}
         highest_attack_fronts = attack_fronts.max(2) do |front_1, front_2|
             front_1.result <=> front_2.result
