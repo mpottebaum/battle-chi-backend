@@ -33,7 +33,11 @@ class Player < ApplicationRecord
         num_militia = neighborhoods.uniq.length / 3
         controlled_zones_bonuses = controlled_zones.map {|zone| zone.num_militia}
         num_militia = num_militia + controlled_zones_bonuses.sum
-        place_militium.update(num_militia: num_militia)
+        if num_militia < 3
+            place_militium.update(num_militia: 3)
+        else
+            place_militium.update(num_militia: num_militia)
+        end
     end
 
     def controlled_zones

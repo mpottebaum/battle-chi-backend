@@ -2,6 +2,9 @@ class Game < ApplicationRecord
     has_many :players
     has_many :militia, through: :players
 
+    has_many :player_cards, through: :players
+    has_many :cards, through: :player_cards
+
     has_many :battles
 
     def create_player(params)
@@ -24,6 +27,12 @@ class Game < ApplicationRecord
     end
 
     def cycle_turn
+        current_player = players.find_by(turn_order_num: turn_order_num)
+        if !remaining_cards.empty? && current_player.draw_card
+            card = remaining_cards.sample
+            current_player.player_cards.create(card: card)
+            current_player.update(draw_card: false)
+        end
         if turn_order_num == num_players
             new_turn = turn_num + 1
             update(turn_order_num: 1, turn_num: new_turn, turn_stage: 0)
@@ -31,9 +40,15 @@ class Game < ApplicationRecord
             new_num = turn_order_num + 1
             update(turn_order_num: new_num, turn_stage: 0)
         end
-        current_player = players.find_by(turn_order_num: turn_order_num)
+        next_player = players.find_by(turn_order_num: turn_order_num)
         if !setup
-            current_player.set_place_militia
+            next_player.set_place_militia
+        end
+    end
+
+    def remaining_cards
+        Card.all.filter do |card|
+            cards.include?(card) == false
         end
     end
 

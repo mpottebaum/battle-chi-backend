@@ -487,3 +487,4 @@ Card.create(neighborhood: hegewisch, fighter_type: 3)
 # Wild cards
 Card.create(fighter_type: 0)
 Card.create(fighter_type: 0)
+Card.create(fighter_type: 0)
