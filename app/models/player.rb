@@ -31,6 +31,14 @@ class Player < ApplicationRecord
 
     def set_place_militia
         num_militia = neighborhoods.uniq.length / 3
+        controlled_zones_bonuses = controlled_zones.map {|zone| zone.num_militia}
+        num_militia = num_militia + controlled_zones_bonuses.sum
         place_militium.update(num_militia: num_militia)
+    end
+
+    def controlled_zones
+        Zone.all.filter do |zone|
+            zone.neighborhoods.all? {|neighborhood| neighborhoods.include?(neighborhood)}
+        end
     end
 end

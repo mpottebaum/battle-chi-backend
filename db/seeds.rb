@@ -9,6 +9,10 @@
 Game.destroy_all
 Player.destroy_all
 Militium.destroy_all
+PlaceMilitium.destroy_all
+Battle.destroy_all
+BattleFront.destroy_all
+
 Zone.destroy_all
 Neighborhood.destroy_all
 Border.destroy_all
@@ -17,15 +21,15 @@ Border.destroy_all
 # ZONES
 # -----
 
-far_north = Zone.create(name: 'Far North Side')
-northwest = Zone.create(name: 'Northwest Side')
-north = Zone.create(name: 'North Side')
-central = Zone.create(name: 'Central Chicago')
-west = Zone.create(name: 'West Side')
-southwest = Zone.create(name: 'Southwest Side')
-south = Zone.create(name: 'South Side')
-far_southwest = Zone.create(name: 'Far Southwest Side')
-far_southeast = Zone.create(name: 'Far Southeast Side')
+far_north = Zone.create(name: 'Far North Side', num_militia: 3)
+northwest = Zone.create(name: 'Northwest Side', num_militia: 2)
+north = Zone.create(name: 'North Side', num_militia: 4)
+central = Zone.create(name: 'Central Chicago', num_militia: 4)
+west = Zone.create(name: 'West Side', num_militia: 6)
+southwest = Zone.create(name: 'Southwest Side', num_militia: 5)
+south = Zone.create(name: 'South Side', num_militia: 6)
+far_southwest = Zone.create(name: 'Far Southwest Side', num_militia: 4)
+far_southeast = Zone.create(name: 'Far Southeast Side', num_militia: 3)
 
 
 

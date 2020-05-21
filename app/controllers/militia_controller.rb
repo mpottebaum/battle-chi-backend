@@ -11,6 +11,7 @@ class MilitiaController < ApplicationController
             else
                 if player.game.setup
                     player.game.cycle_turn
+                    player.place_militium.update(militia_placed: 0)
                 else
                     player.game.update(turn_stage: 1)
                     player.place_militium.update(militia_placed: 0)
