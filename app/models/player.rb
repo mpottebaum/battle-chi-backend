@@ -45,4 +45,33 @@ class Player < ApplicationRecord
             zone.neighborhoods.all? {|neighborhood| neighborhoods.include?(neighborhood)}
         end
     end
+
+    def trade_cards(card_ids)
+        num_sets = game.card_sets + 1
+        game.update(card_sets: num_sets)
+        num_militia = place_militium.num_militia + game.card_bonus
+        place_militium.update(num_militia: num_militia)
+
+        if any_neighborhoods?(card_ids)
+            card = any_neighborhoods?(card_ids)
+            militia.create(neighborhood_id: card.neighborhood_id)
+            militia.create(neighborhood_id: card.neighborhood_id)
+        end
+
+        disable_cards(card_ids)
+    end
+
+    def disable_cards(card_ids)
+        player_cards.each do |player_card|
+            if card_id.include?(player_card.id)
+                player_card.update(traded: true)
+            end
+        end
+    end
+
+    def any_neighborhoods?(card_ids)
+        cards = Card.all.select {|card| card_ids.include?(card.id)}
+        neighborhood_ids = neighborhoods.map {|neighborhood| neighborhood.id}
+        cards.detect {|card| neighborhood_ids.include?(card.neighborhood_id)}
+    end
 end

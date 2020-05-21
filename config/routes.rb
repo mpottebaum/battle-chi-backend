@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   patch '/games/:id/cycle', to: 'games#cycle'
   resources :players do
     resources :militia
+    patch '/cards/trade', to: 'cards#trade'
     resources :battles, only: [:create, :update]
     patch '/battles/:id/complete', to: 'battles#complete'
     patch '/battles/:id/conquer', to: 'battles#conquer'
