@@ -18,7 +18,7 @@ class PlayersController < ApplicationController
         player.game.cycle_turn
         
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
-            GameSerializer.new(player.game)
+            FortifyGameSerializer.new(player.game)
         ).serializable_hash
         PlayersChannel.broadcast_to player.game, serialized_game
     end

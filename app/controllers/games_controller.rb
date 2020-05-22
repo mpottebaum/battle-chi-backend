@@ -38,7 +38,7 @@ class GamesController < ApplicationController
         game.update(turn_stage: 2)
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
-            GameSerializer.new(game)
+            CycleGameSerializer.new(game)
         ).serializable_hash
         PlayersChannel.broadcast_to game, serialized_game
     end
@@ -48,7 +48,7 @@ class GamesController < ApplicationController
         game.cycle_turn
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
-            GameSerializer.new(game)
+            CycleGameSerializer.new(game)
         ).serializable_hash
         PlayersChannel.broadcast_to game, serialized_game
     end
