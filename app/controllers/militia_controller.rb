@@ -20,7 +20,7 @@ class MilitiaController < ApplicationController
         end
         
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
-            GameSerializer.new(player.game)
+            CreateMilitiumGameSerializer.new(player.game)
         ).serializable_hash
         PlayersChannel.broadcast_to player.game, serialized_game
     end

@@ -12,7 +12,7 @@ class BattlesController < ApplicationController
         )
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
-            GameSerializer.new(player.game)
+            BattleGameSerializer.new(player.game)
         ).serializable_hash
         PlayersChannel.broadcast_to player.game, serialized_game
     end
@@ -37,7 +37,7 @@ class BattlesController < ApplicationController
         battle.update(active: false)
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
-            GameSerializer.new(player.game)
+            BattleGameSerializer.new(player.game)
         ).serializable_hash
         PlayersChannel.broadcast_to player.game, serialized_game
     end
