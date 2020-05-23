@@ -17,19 +17,23 @@ class GamesController < ApplicationController
             GameSerializer.new(game)
         ).serializable_hash
 
-        neighborhoods = Neighborhood.all
         serialized_neighborhoods = Neighborhood.all.map do |neighborhood|
             serialized_neighborhood = ActiveModelSerializers::Adapter::Json.new(
                 NeighborhoodSerializer.new(neighborhood)
             ).serializable_hash
             serialized_neighborhood[:neighborhood]
         end
-        zones = Zone.all
+        serialized_zones = Zone.all.map do |zone|
+            serialized_zone = ActiveModelSerializers::Adapter::Json.new(
+                ZoneSerializer.new(zone)
+            ).serializable_hash
+            serialized_zone[:zone]
+        end
 
         render json: {
             game: serialized_game[:game],
             neighborhoods: serialized_neighborhoods,
-            zones: zones
+            zones: serialized_zones
         }
     end
 
