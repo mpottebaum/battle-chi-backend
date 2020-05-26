@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
     def create
-        game = Game.create(num_players: 2)
+        game = Game.create(num_players: 2, random: params[:random])
         render json: game
     end
 

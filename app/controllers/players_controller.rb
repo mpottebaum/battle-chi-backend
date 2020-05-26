@@ -2,7 +2,12 @@ class PlayersController < ApplicationController
 
     def create
         game = Game.find(player_params[:game_id])
-        player = game.create_player(player_params)
+        if game.random
+            player = game.create_player_random(player_params)
+        else
+            player = game.create_player_normal(player_params)
+        end
+
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
             GameSerializer.new(player.game)
         ).serializable_hash

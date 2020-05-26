@@ -7,22 +7,33 @@ class Game < ApplicationRecord
 
     has_many :battles
 
-    def create_player(params)
+    def create_player_normal(params)
         if players.length == 0
             player = players.create(name: params[:name], turn_order_num: 1)
-            # neighborhoods = Neighborhood.all.sample(21)
         else
-            # opponent = players.first
-            # neighborhoods = Neighborhood.all.reject do |neighborhood|
-            #     opponent.militia.any? {|militium| militium.neighborhood == neighborhood}
-            # end
             player = players.create(name: params[:name], turn_order_num: 2)
         end
         player.create_place_militium(num_militia: 1, militia_placed: 0)
-        # neighborhoods.each do |neighborhood|
-        #     player.militia.create(neighborhood: neighborhood)
-        #     player.militia.create(neighborhood: neighborhood)
-        # end
+        player
+    end
+
+    def create_player_random(params)
+        if players.length == 0
+            update(setup: false)
+            player = players.create(name: params[:name], turn_order_num: 1)
+            neighborhoods = Neighborhood.all.sample(21)
+        else
+            opponent = players.first
+            neighborhoods = Neighborhood.all.reject do |neighborhood|
+                opponent.militia.any? {|militium| militium.neighborhood == neighborhood}
+            end
+            player = players.create(name: params[:name], turn_order_num: 2)
+        end
+        player.create_place_militium(num_militia: 7, militia_placed: 0)
+        neighborhoods.each do |neighborhood|
+            player.militia.create(neighborhood: neighborhood)
+            player.militia.create(neighborhood: neighborhood)
+        end
         player
     end
 
