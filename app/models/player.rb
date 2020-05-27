@@ -50,16 +50,17 @@ class Player < ApplicationRecord
         num_militia = place_militium.num_militia + game.card_bonus
         place_militium.update(num_militia: num_militia)
         
-        if any_neighborhoods?(card_ids)
-            card = any_neighborhoods?(card_ids)
-            militia.create(neighborhood_id: card.neighborhood_id)
-            militia.create(neighborhood_id: card.neighborhood_id)
-        end
         
         disable_cards(card_ids)
-
+        
         num_sets = game.card_sets + 1
         game.update(card_sets: num_sets)
+
+        if any_neighborhoods?(card_ids)
+            return any_neighborhoods?(card_ids)
+        else
+            return nil
+        end
     end
 
     def disable_cards(card_ids)
@@ -73,6 +74,6 @@ class Player < ApplicationRecord
     def any_neighborhoods?(card_ids)
         cards = Card.all.select {|card| card_ids.include?(card.id)}
         neighborhood_ids = neighborhoods.map {|neighborhood| neighborhood.id}
-        cards.detect {|card| neighborhood_ids.include?(card.neighborhood_id)}
+        cards.select {|card| neighborhood_ids.include?(card.neighborhood_id)}
     end
 end

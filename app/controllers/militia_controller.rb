@@ -25,6 +25,17 @@ class MilitiaController < ApplicationController
         PlayersChannel.broadcast_to player.game, serialized_game
     end
 
+    def card
+        player = Player.find(params[:player_id])
+        player.create_militia(militium_params[:neighborhood_id])
+        player.create_militia(militium_params[:neighborhood_id])
+        
+        serialized_game = ActiveModelSerializers::Adapter::Json.new(
+            CreateMilitiumGameSerializer.new(player.game)
+        ).serializable_hash
+        PlayersChannel.broadcast_to player.game, serialized_game
+    end
+
     private
 
     def militium_params
