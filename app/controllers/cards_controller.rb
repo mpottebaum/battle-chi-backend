@@ -9,7 +9,7 @@ class CardsController < ApplicationController
         ).serializable_hash
 
         if match_neighborhood_cards
-            serialized_game[:game][:match_neighborhood_cards] = match_neighborhood_cards
+            serialized_game[:match_neighborhood_cards] = match_neighborhood_cards
         end
         PlayersChannel.broadcast_to player.game, serialized_game
     end
