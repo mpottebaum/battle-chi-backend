@@ -31,7 +31,7 @@ class Battle < ApplicationRecord
         highest_defense_front = defense_fronts.max do |front_1, front_2|
             front_1.result <=> front_2.result
         end
-        if attack_front.result > highest_defense_front
+        if attack_front.result > highest_defense_front.result
             militium = defense_player.militia.detect {|militium| militium.neighborhood_id == defense_neighborhood_id}
         else
             militium = attack_player.militia.detect {|militium| militium.neighborhood_id == attack_neighborhood_id}

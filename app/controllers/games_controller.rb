@@ -7,11 +7,12 @@ class GamesController < ApplicationController
 
     def show
         game = Game.find(params[:id])
-        if game && game.players.length < game.num_players
-            render json: game
-        else
-            render json: {error: 'The game you are trying to join is full'}
-        end
+        # if game && game.players.length < game.num_players
+        #     render json: game
+        # else
+        #     render json: {error: 'The game you are trying to join is full'}
+        # end
+        render json: game
     end
 
     def retrieve
