@@ -27,8 +27,7 @@ class MilitiaController < ApplicationController
 
     def card
         player = Player.find(params[:player_id])
-        player.create_militia(militium_params[:neighborhood_id])
-        player.create_militia(militium_params[:neighborhood_id])
+        player.militia.create(militium_params[:neighborhood_id])
         
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
             CreateMilitiumGameSerializer.new(player.game)
