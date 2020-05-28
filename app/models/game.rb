@@ -34,6 +34,7 @@ class Game < ApplicationRecord
             player.militia.create(neighborhood: neighborhood)
             player.militia.create(neighborhood: neighborhood)
         end
+        player.set_place_militia
         player
     end
 
