@@ -9,9 +9,12 @@ class Game < ApplicationRecord
 
     def create_player_normal(params)
         if players.length == 0
-            player = players.create(name: params[:name], turn_order_num: 1)
+            turn_order_num = select_turn_order
+            player = players.create(name: params[:name], turn_order_num: turn_order_num)
         else
-            player = players.create(name: params[:name], turn_order_num: 2)
+            opponent = players.first
+            turn_order_num = opponent.turn_order_num == 1 ? 2 : 1
+            player = players.create(name: params[:name], turn_order_num: turn_order_num)
         end
         player.create_place_militium(num_militia: 1, militia_placed: 0)
         player
@@ -20,14 +23,16 @@ class Game < ApplicationRecord
     def create_player_random(params)
         if players.length == 0
             update(setup: false)
-            player = players.create(name: params[:name], turn_order_num: 1)
+            turn_order_num = select_turn_order
+            player = players.create(name: params[:name], turn_order_num: turn_order_num)
             neighborhoods = Neighborhood.all.sample(21)
         else
             opponent = players.first
+            turn_order_num = opponent.turn_order_num == 1 ? 2 : 1
             neighborhoods = Neighborhood.all.reject do |neighborhood|
                 opponent.militia.any? {|militium| militium.neighborhood == neighborhood}
             end
-            player = players.create(name: params[:name], turn_order_num: 2)
+            player = players.create(name: params[:name], turn_order_num: turn_order_num)
         end
         player.create_place_militium(num_militia: 7, militia_placed: 0)
         neighborhoods.each do |neighborhood|
@@ -36,6 +41,10 @@ class Game < ApplicationRecord
         end
         player.set_place_militia
         player
+    end
+
+    def select_turn_order
+        rand(1..2)
     end
 
     def cycle_turn
@@ -84,6 +93,12 @@ class Game < ApplicationRecord
                 return 15
             else
                 return ((card_sets - 6) * 5) + 15
+        end
+    end
+
+    def game_over?
+        if players.any? {|player| player.militia.length == 0}
+            update(completed: true)
         end
     end
 end

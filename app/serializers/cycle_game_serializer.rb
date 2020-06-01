@@ -1,5 +1,5 @@
 class CycleGameSerializer < ActiveModel::Serializer
-  attributes :id, :num_players, :turn_num, :turn_stage, :turn_order_num, :card_sets, :setup, :players
+  attributes :id, :num_players, :turn_num, :turn_stage, :turn_order_num, :card_sets, :setup, :completed, :players
 
   def players
     self.object.players.map do |player|

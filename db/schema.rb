@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_201720) do
+ActiveRecord::Schema.define(version: 2020_06_01_212234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_05_26_201720) do
     t.boolean "setup", default: true
     t.integer "card_sets", default: 0
     t.boolean "random"
+    t.boolean "completed", default: false
   end
 
   create_table "militia", force: :cascade do |t|

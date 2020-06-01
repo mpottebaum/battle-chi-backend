@@ -24,6 +24,7 @@ class BattlesController < ApplicationController
             defense_militia: battle_params[:defense_militia]
         )
         battle.fight
+        player.game.game_over?
 
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
             GameSerializer.new(player.game)
