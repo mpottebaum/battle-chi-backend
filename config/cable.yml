@@ -7,7 +7,7 @@ test:
 production:
   adapter: redis
   url: redis://redistogo:c2aa46dc9295c4db9f5df9a62b249768@pike.redistogo.com:11254/
-  channel_prefix: battle_chi_backend_production
+  # channel_prefix: battle_chi_backend_production
 
 # production:
 #   adapter: postgresql
