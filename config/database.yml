@@ -82,4 +82,5 @@ production:
   <<: *default
   database: battle_chi_backend_production
   username: battle_chi_backend
-  password: <%= ENV['BATTLE_CHI_BACKEND_DATABASE_PASSWORD'] %>
+  password: battle4chicago
+  # password: <%= ENV['BATTLE_CHI_BACKEND_DATABASE_PASSWORD'] %>
