@@ -4,7 +4,7 @@ Battle For Chicago is a two-player board game based on Risk that uses a map of C
 
 The app provides another way for socially distanced families and friends to spend time together remotely.
 
-[Live app](https://fathomless-cove-56346.herokuapp.com/) | [Front End Repo](https://github.com/mpottebaum/battle-chi-frontend)
+[Full Demo](https://www.youtube.com/watch?v=2QhTyIyUOZg) | [Live app](https://fathomless-cove-56346.herokuapp.com/) | [Front End Repo](https://github.com/mpottebaum/battle-chi-frontend)
 
 ![Battle For Chicago demo](https://j.gifs.com/oVBZXz.gif)
 
